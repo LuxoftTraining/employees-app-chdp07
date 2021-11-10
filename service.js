@@ -1,8 +1,8 @@
 function findByName(name, surname) {
     let res = [];
-    for (var e of DATA.employees) {
-        if ((!name || e.name===name) &&
-            (!surname || e.surname===surname)) {
+    for (let e of DATA.employees) {
+        if ((!name || e.name === name) &&
+            (!surname || e.surname === surname)) {
             res.push(e);
         }
     }
@@ -11,15 +11,15 @@ function findByName(name, surname) {
 
 
 function addEmployee(name, surname) {
-    if (!name || name.length==0 || !surname || surname.length==0) {
+    if (!name || name.length === 0 || !surname || surname.length === 0) {
         throw new Error("name and surname should be not empty");
     }
     let max = 0;
     for (let e of DATA.employees) {
-        if (e.id>max) max = e.id;
+        if (e.id > max) max = e.id;
     }
-    let id = max+1;
-    DATA.employees.push({id,name,surname});
+    let id = max + 1;
+    DATA.employees.push({id, name, surname});
     return id;
 }
 
@@ -27,7 +27,7 @@ function addEmployee(name, surname) {
 function removeEmployee(id) {
     let index = 0;
     for (let e of DATA.employees) {
-        if (e.id===id) break;
+        if (e.id === id) break;
         index++;
     }
     DATA.employees.splice(index, 1);
@@ -36,9 +36,9 @@ function removeEmployee(id) {
 
 function showEmployee(employee) {
     const keys = Object.keys(employee);
-    console.log("Информация о сотруднике "+employee["name"]+":");
+    console.log("Информация о сотруднике " + employee["name"] + ":");
     for (let key of keys) {
-        console.log(key+ " = "+employee[key]);
+        console.log(key + " = " + employee[key]);
     }
 }
 
@@ -58,8 +58,8 @@ function findById(id) {
     if (employeeMap[id]) {
         return employeeMap[id];
     }
-    for (var e of DATA.employees) {
-        if (id==e.id) {
+    for (let e of DATA.employees) {
+        if (id === e.id) {
             employeeMap[id] = e;
             return e;
         }
@@ -78,7 +78,8 @@ function addPhone(id, phone) {
 
 function setDateOfBirth(id, date) {
     const employee = findById(id);
-    employee.dateOfBirth = date;
+    let DateOfBirth = new Date(date);
+    employee.dateOfBirth = DateOfBirth;
 }
 
 
@@ -104,10 +105,10 @@ function formatDate(date) {
 function getEmployeeInfo(id) {
     const e = findById(id);
 
-    const phones = e.phones?
-        `Список телефонов: ${e.phones}`:'';
-    const age = e.dateOfBirth?
-        `Возраст: ${getAge(e.id)}`:'';
+    const phones = e.phones ?
+        `Список телефонов: ${e.phones}` : '';
+    const age = e.dateOfBirth ?
+        `Возраст: ${getAge(e.id)}` : '';
     return ` 
   Имя: ${e.name}
   Фамилия: ${e.surname}
@@ -120,7 +121,7 @@ function getEmployeeInfo(id) {
 function testEmployee() {
     addPhone(133, "555-55-55");
     addPhone(133, "666-66-66");
-    setDateOfBirth(133, new Date(2000,1,1))
+    setDateOfBirth(133, new Date(2000, 1, 1))
     const info = getEmployeeInfo(133);
     console.log(info);
 }
